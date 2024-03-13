@@ -1,0 +1,25 @@
+$theme-colors: (
+  'primary': teal,
+  'danger': #bf0303,
+  'warning': #ffa807
+);
+
+@import '~bootstrap/scss/bootstrap';
+
+body {
+  background-color: #eee;
+}
+
+h1 {
+  font-size: 1.7rem;
+}
+
+.card {
+  border: 0;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+  background-color: #fff;
+  .card-body {
+    background-color: #fff;
+  }
+}
+
