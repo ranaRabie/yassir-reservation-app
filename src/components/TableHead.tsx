@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-
-interface TableHeadProps {
-    columns: {
-        name: string;
-        sortBy?: string;
-    }[];
-
-    onSortClick: (sortBy: string, isAsc: boolean) => void
-}
+import { TableHeadProps } from '../interfaces';
 
 const TableHead: React.FC<TableHeadProps> = ({columns, onSortClick}) => {
     const [isAsc, setIsAsc] = useState(false);
@@ -24,7 +16,7 @@ const TableHead: React.FC<TableHeadProps> = ({columns, onSortClick}) => {
                     column.sortBy ?
                     <th scope="col" key={idx}>{column.name} <button onClick={() => sortClick(column.sortBy as string)}>sort</button></th>
                     :
-                    <th scope="col">{column.name}</th>
+                    <th scope="col" key={idx}>{column.name}</th>
                 ))}
             </tr>
         </thead>
