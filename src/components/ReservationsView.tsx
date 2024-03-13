@@ -31,6 +31,11 @@ const ReservationsView: React.FC = () => {
           if (filters[key] !== null && item[key as keyof typeof item].toLocaleLowerCase() !== filters[key].toLocaleLowerCase()) {
             return false;
           }
+        } if (key === 'businessDate') { 
+            // @ts-ignore: Unreachable code error
+            if (filters[key] !== null && item[key as keyof typeof item] !== filters[key]) {
+                return false;
+            }
         } else if (filters[key] !== null && item[key as keyof typeof item] !== filters[key]) {
           return false;
         }

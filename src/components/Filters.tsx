@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
+import React, { useRef, useState } from 'react';
 
 interface FiltersProps {
     onSubmitFilters: any;
@@ -9,7 +8,7 @@ interface FiltersProps {
 interface filtersObj {
     firstName?: string | null;
     lastName?: string | null;
-    date?: string | null;
+    businessDate?: string | null;
     shift?: string | null;
     status?: string | null;
     area?: string | null;
@@ -19,6 +18,7 @@ const Filters: React.FC<FiltersProps> = ({ onSubmitFilters, onClearFilters }) =>
     const [isShowFilters, setIsShowFilters] = useState<boolean>(false);
     const fNameRef = useRef<HTMLInputElement | null>(null);
     const lNameRef = useRef<HTMLInputElement | null>(null);
+    const dateRef = useRef<HTMLInputElement | null>(null);
     const shiftRef = useRef<HTMLSelectElement | null>(null);
     const statusRef = useRef<HTMLSelectElement | null>(null);
     const areaRef = useRef<HTMLSelectElement | null>(null);
@@ -28,6 +28,7 @@ const Filters: React.FC<FiltersProps> = ({ onSubmitFilters, onClearFilters }) =>
         const selectedFilters: filtersObj = {
             firstName: fNameRef.current?.value !== '' ? fNameRef.current?.value : null,
             lastName: lNameRef.current?.value !== '' ? lNameRef.current?.value : null,
+            businessDate: dateRef.current?.value !== '' ? getFormattedDate(dateRef.current?.value as string) : null,
             shift: shiftRef.current?.value !== 'ALL' ? shiftRef.current?.value : null,
             status: statusRef.current?.value !== 'ALL' ? statusRef.current?.value : null,
             area: areaRef.current?.value !== 'ALL' ? areaRef.current?.value : null,
@@ -39,11 +40,22 @@ const Filters: React.FC<FiltersProps> = ({ onSubmitFilters, onClearFilters }) =>
         e.preventDefault();
         fNameRef.current!.value = '';
         lNameRef.current!.value = '';
+        dateRef.current!.value = '';
         shiftRef.current!.value = 'ALL';
         statusRef.current!.value = 'ALL';
         areaRef.current!.value = 'ALL';
 
         onClearFilters();
+    }
+
+    const getFormattedDate = (date: string): string => {
+        const d = new Date(date);
+        const year = d.getFullYear();
+        const month = `0${d.getMonth() + 1}`.slice(-2);
+        const day = `0${d.getDate()}`.slice(-2);
+
+        const formattedDate = `${day}.${month}.${year}`;
+        return formattedDate;
     }
 
     return (
@@ -61,16 +73,25 @@ const Filters: React.FC<FiltersProps> = ({ onSubmitFilters, onClearFilters }) =>
                         <div className="row">
                             <div className="col-md-4">
                                 <div className="form-group">
-                                    <label htmlFor="shiftFormControlSelect">First Name</label>
-                                    <input type="text" className="form-control" ref={fNameRef} />
+                                    <label htmlFor="fNameFormControlSelect">First Name</label>
+                                    <input id="fNameFormControlSelect" type="text" className="form-control" ref={fNameRef} />
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group">
-                                    <label htmlFor="shiftFormControlSelect">Last Name</label>
-                                    <input type="text" className="form-control" ref={lNameRef} />
+                                    <label htmlFor="lNameFormControlSelect">Last Name</label>
+                                    <input id="lNameFormControlSelect" type="text" className="form-control" ref={lNameRef} />
                                 </div>
                             </div>
+
+                            <div className="col-md-4">
+                                <div className="form-group">
+                                    <label htmlFor="dateFormControlSelect">Date</label>
+                                    <input id="dateFormControlSelect" type="date" className="form-control" ref={dateRef} />
+                                </div>
+                            </div>
+
+
                             <div className="col-md-4">
                                 <div className="form-group">
                                     <label htmlFor="shiftFormControlSelect">Shift</label>

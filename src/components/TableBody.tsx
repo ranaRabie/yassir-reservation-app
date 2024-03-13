@@ -13,7 +13,7 @@ const TableBody: React.FC<TableBodyProps> = ({rows}) => {
                 <th>{row.id}</th>
                 <td>{row.firstName}</td>
                 <td>{row.lastName}</td>
-                <td>{row.start}</td>
+                <td>{row.businessDate}</td>
                 <td>{row.status}</td>
                 <td>{row.shift}</td>
                 <td>{row.area}</td>
