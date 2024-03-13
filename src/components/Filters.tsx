@@ -50,7 +50,8 @@ const Filters: React.FC<FiltersProps> = ({ onSubmitFilters, onClearFilters }) =>
         <>
             <div className="d-flex justify-content-end">
                 <button id="toggle-filters" className="btn btn-warning mb-2" onClick={() => setIsShowFilters(!isShowFilters)}>
-                    {isShowFilters ? 'Hide Filters' : 'Show Filters'}
+                    <span className="material-icons">filter_list</span>
+                    <span className='d-inline-block mx-2'>{isShowFilters ? 'Hide Filters' : 'Show Filters'}</span>
                 </button>
             </div>
 

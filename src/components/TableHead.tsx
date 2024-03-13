@@ -14,7 +14,7 @@ const TableHead: React.FC<TableHeadProps> = ({columns, onSortClick}) => {
             <tr>
                 {columns.map((column, idx) => (
                     column.sortBy ?
-                    <th scope="col" key={idx}>{column.name} <button onClick={() => sortClick(column.sortBy as string)}>sort</button></th>
+                    <th scope="col" key={idx}>{column.name} <a className="sort-btn" onClick={() => sortClick(column.sortBy as string)}><span className="material-icons">swap_vert</span></a></th>
                     :
                     <th scope="col" key={idx}>{column.name}</th>
                 ))}
