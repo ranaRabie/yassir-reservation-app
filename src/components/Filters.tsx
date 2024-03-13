@@ -37,14 +37,20 @@ const Filters: React.FC<FiltersProps> = ({ onSubmitFilters, onClearFilters }) =>
 
     const clearFilters = (e: any) => {
         e.preventDefault();
+        fNameRef.current!.value = '';
+        lNameRef.current!.value = '';
+        shiftRef.current!.value = 'ALL';
+        statusRef.current!.value = 'ALL';
+        areaRef.current!.value = 'ALL';
+
         onClearFilters();
     }
 
     return (
         <>
             <div className="d-flex justify-content-end">
-                <button className="btn btn-warning mb-2" onClick={() => setIsShowFilters(!isShowFilters)}>
-                {isShowFilters ? 'Hide Filters' : 'Show Filters'}
+                <button id="toggle-filters" className="btn btn-warning mb-2" onClick={() => setIsShowFilters(!isShowFilters)}>
+                    {isShowFilters ? 'Hide Filters' : 'Show Filters'}
                 </button>
             </div>
 
@@ -97,9 +103,6 @@ const Filters: React.FC<FiltersProps> = ({ onSubmitFilters, onClearFilters }) =>
                                     </select>
                                 </div>
                             </div>
-                            {/* <div className="col-md-4">
-
-                            </div> */}
                         </div>
                         <div className="form-actions mt-3">
                             <button type="button" className="btn btn-primary" onClick={(e) => submitFilters(e)}>submit</button>

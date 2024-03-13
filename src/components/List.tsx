@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Filters from './Filters';
+import TableHead from './TableHead';
 
 interface ListItem {
   id: number;
@@ -10,10 +11,8 @@ interface ListItem {
   start: string;
   end: string;
   quantity: number;
-  customer: {
-    firstName: string;
-    lastName: string;
-  };
+  firstName: string;
+  lastName: string;
   area: string;
   guestNotes: string;
 }
@@ -30,7 +29,34 @@ interface ListItem {
 //   LUNCH = "LUNCH", 
 //   BREAKFAST = "BREAKFAST"
 // }
+const tableColumns = 
+[
+  {
+    name: '#',
+    sortBy: 'id'
+  },
+  {
+    name: 'First Name',
+    sortBy: 'firstName'
+  },
+  {
+    name: 'Last Name',
+    sortBy: 'lastName'
+  },
+  {
+    name: 'Date'
+  },
+  {
+    name: 'Status'
+  },
+  {
+    name: 'Shift'
+  },
+  {
+    name: 'Area'
+  }
 
+];
 const List: React.FC = () => {
   const [data, setData] = useState<ListItem[]>([]);
   const [filteredData, setFilteredData] = useState<ListItem[]>([]);
@@ -49,13 +75,13 @@ const List: React.FC = () => {
   }, []);
 
   const applyFilters = (filters: any) => {
-    console.log(filters);
     let currentData = [...data];
 
     currentData = currentData.filter((item) => {
       for (let key in filters) {
         if (key === 'firstName' || key === 'lastName') {
-          if (filters[key] !== null && item['customer'][key as keyof typeof item.customer].toLocaleLowerCase() !== filters[key].toLocaleLowerCase()) {
+          // @ts-ignore: Unreachable code error
+          if (filters[key] !== null && item[key as keyof typeof item].toLocaleLowerCase() !== filters[key].toLocaleLowerCase()) {
             return false;
           }
         } else if (filters[key] !== null && item[key as keyof typeof item] !== filters[key]) {
@@ -72,6 +98,29 @@ const List: React.FC = () => {
     setFilteredData(data);
   }
 
+  const applySort = (sortBy: string, isAsc: boolean) => {
+    if (sortBy) {
+      let sorted = [...filteredData]
+      
+      sorted = sorted.sort((a, b) => {
+          // @ts-ignore: Unreachable code error
+          if (a[sortBy] === null) return 1;
+          // @ts-ignore: Unreachable code error
+          if (b[sortBy] === null) return -1;
+          // @ts-ignore: Unreachable code error
+          if (a[sortBy] === null && b[sortBy] === null) return 0;
+          return (
+            // @ts-ignore: Unreachable code error
+            a[sortBy].toString().localeCompare(b[sortBy].toString(), "en", {
+            numeric: true,
+            }) * (isAsc ? 1 : -1)
+          );
+      });
+
+      setFilteredData(sorted);
+    }
+  }
+
 
   return (
     <div className='container'>
@@ -80,23 +129,13 @@ const List: React.FC = () => {
       <div className="card card-body">
         <div className="table-responsive">
           <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Date</th>
-                <th scope="col">Status</th>
-                <th scope="col">Shift</th>
-                <th scope="col">Area</th>
-              </tr>
-            </thead>
+            <TableHead columns={tableColumns} onSortClick={applySort} />
             <tbody>
               {filteredData.map(item => (
                 <tr key={item.id}>
                   <th scope="row">{item.id}</th>
-                  <td>{item.customer.firstName}</td>
-                  <td>{item.customer.lastName}</td>
+                  <td>{item.firstName}</td>
+                  <td>{item.lastName}</td>
                   <td>{item.start}</td>
                   <td>{item.status}</td>
                   <td>{item.shift}</td>
