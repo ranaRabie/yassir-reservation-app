@@ -51,6 +51,9 @@ h1 {
 }
 
 .sort-btn {
+  background-color: transparent;
+  border: none;
+  outline: 0;
   .material-icons {
     color: #aaa;
     &:hover {
