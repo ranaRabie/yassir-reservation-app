@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Filters from './Filters';
 import List from './List';
+import NoData from './NoData';
 import { ListItem } from '../interfaces';
 
 const ReservationsView: React.FC = () => {
@@ -77,7 +78,12 @@ const ReservationsView: React.FC = () => {
   return (
     <div className='container'>
       <Filters onSubmitFilters={applyFilters} onClearFilters={clearFilters} />
-      <List tableData={filteredData} onApplySort={applySort} />
+      
+      {filteredData.length !== 0 ?
+        <List tableData={filteredData} onApplySort={applySort} />
+        :
+        <NoData />
+      }
     </div>
   );
 };
