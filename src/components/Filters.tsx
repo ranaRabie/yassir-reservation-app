@@ -68,7 +68,7 @@ const Filters: React.FC<FiltersProps> = ({ onSubmitFilters, onClearFilters }) =>
             </div>
 
             {isShowFilters &&
-                <div className="filters__blk card card-body mb-3">
+                <div id="filters-section" className="filters__blk card card-body mb-3">
                     <form>
                         <div className="row">
                             <div className="col-md-4">

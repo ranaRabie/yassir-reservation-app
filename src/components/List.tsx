@@ -44,7 +44,7 @@ const List: React.FC<ListProps> = ({tableData, onApplySort}) => {
   return (
     <div className="card card-body">
       <div className="table-responsive">
-        <table className="table">
+        <table id="reservation-list" className="table">
           <TableHead columns={tableColumns} onSortClick={applySort} />
           <TableBody rows={tableData} />
         </table>

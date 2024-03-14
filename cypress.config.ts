@@ -35,6 +35,7 @@ module.exports = {
       specPattern: '**/*.feature',
       supportFile: false,
       setupNodeEvents,
+      baseUrl: 'http://localhost:3000/#',
     },
   }),
   setupNodeEvents,

@@ -10,7 +10,7 @@ const TableBody: React.FC<TableBodyProps> = ({rows}) => {
         <tbody>
         {rows.map((row, idx) => (
             <tr key={idx}>
-                <th>{row.id}</th>
+                <td>{row.id}</td>
                 <td>{row.firstName}</td>
                 <td>{row.lastName}</td>
                 <td>{row.businessDate}</td>
