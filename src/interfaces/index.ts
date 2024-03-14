@@ -1,8 +1,8 @@
 export interface ListItem {
   id: number;
   businessDate: string;
-  status: status;
-  shift: shift;
+  status: string;
+  shift: string;
   start: string;
   end: string;
   quantity: number;

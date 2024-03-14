@@ -4,6 +4,7 @@ import Filters from './Filters';
 import List from './List';
 import NoData from './NoData';
 import { ListItem } from '../interfaces';
+import reservationsList from '../db.json';
 
 const ReservationsView: React.FC = () => {
   const [data, setData] = useState<ListItem[]>([]);
@@ -16,7 +17,8 @@ const ReservationsView: React.FC = () => {
         setFilteredData(response.data);
       })
       .catch(function (error) {
-        alert('some error occured');
+        setData(reservationsList.reservations);
+        setFilteredData(reservationsList.reservations);
       })
       .finally(function () {
       });
